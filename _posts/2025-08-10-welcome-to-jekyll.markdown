@@ -54,3 +54,10 @@ Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most ou
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
 [jekyll-talk]: https://talk.jekyllrb.com/
+
+
+#TODO should the gallery be derived from a folder instead?
+#maybe not for now just because its still nice to be able to add captions
+#and potentially bigger images that popup
+
+#TODO the one thing that would definitely be nice would be to fill the collums as needed as you scroll...
