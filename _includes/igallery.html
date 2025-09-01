@@ -47,56 +47,62 @@ body {
   }
 }
 
-:has(img:hover) img:not(:hover) {
+/* :has(img:hover) img:not(:hover) {
   filter: brightness(0.5) contrast(0.5);
-}
+} */
 
 </style>
 
+{% if include.id %}
+  {% assign gallery = page[include.id] %}
+{% else %}
+  {% assign gallery = page.gallery %}
+{% endif %}
 
-<body>
+{% if include.layout %}
+  {% assign gallery_layout = include.layout %}
+{% else %}
+  {% if gallery.size == 2 %}
+    {% assign gallery_layout = 'half' %}
+  {% elsif gallery.size >= 3 %}
+    {% assign gallery_layout = 'third' %}
+  {% else %}
+    {% assign gallery_layout = '' %}
+  {% endif %}
+{% endif %}
 
+
+
+<figure class="{{ gallery_layout }} {{ include.class }}">
 <!-- Photo Grid -->
 <div class="row"> 
-  <div class="column">
-    <img src="https://picsum.photos/400/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/150/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/200/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/300/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/400/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/300/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/200/300" style="width:100%" onclick="onClick(this)">
-  </div>
-  
-  <div class="column">
-    <img src="https://picsum.photos/200/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/600/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/500/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/800/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/200/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/500/300" style="width:100%" onclick="onClick(this)">
-  </div> 
-   
-  <div class="column">
-    <img src="https://picsum.photos/300/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/700/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/200/300" style="width:100%" onclick="onClick(this)">
-    <img src="https://picsum.photos/300/300" style="width:100%" onclick="onClick(this)">
-  </div>
+  {% assign perColumn = gallery.size | divided_by: 3 %}
+  {% assign remainder = gallery.size | modulo: 3 %}
+  {% if remainder > 0 %}
+    {% assign perColumn = perColumn | plus: 1 %}
+  {% endif %}
+  {% assign leftInColumn = perColumn %}
+  {% for img in gallery %}
+    {% if leftInColumn == perColumn %}
+      <div class="column">
+    {% endif %}
+
+    {% assign leftInColumn = leftInColumn | minus: 1 %}
+    {% if img.url %}
+      <a href="{{ img.url | relative_url }}"
+        {% if img.title %}title="{{ img.title | escape_once }}"{% endif %}>
+          <img src="{{ img.image_path | relative_url }}" style="width:100%"
+               alt="{% if img.alt %}{{ img.alt | escape_once }}{% endif %}">
+      </a>
+    {% else %}
+      <img src="{{ img.image_path | relative_url }}"
+           alt="{% if img.alt %}{{ img.alt | escape_once }}{% endif %}">
+    {% endif %}
+    {% if leftInColumn == 0 %}
+      </div>
+      {% assign leftInColumn = perColumn %}
+    {% endif %}
+  {% endfor %}
 </div>
 
-<div id="modal01" class="w3-modal" onclick="this.style.display='none'">
-  <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
-  <div class="w3-modal-content w3-animate-zoom">
-    <img id="img01" style="width:100%">
-  </div>
-</div>
-
-</body>
-
-<script>
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-}
-</script>
+</figure>
