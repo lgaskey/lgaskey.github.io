@@ -47,46 +47,56 @@ body {
   }
 }
 
-</style>
-<body>
+:has(img:hover) img:not(:hover) {
+  filter: brightness(0.5) contrast(0.5);
+}
 
-<!-- Header -->
-<div class="header">
-  <h1>Responsive Image Gallery</h1>
-  <p>Resize the browser window to see the responsive effect.</p>
-</div>
+</style>
+
+
+<body>
 
 <!-- Photo Grid -->
 <div class="row"> 
   <div class="column">
-    <img src="https://picsum.photos/400/300" style="width:100%">
-    <img src="https://picsum.photos/150/300" style="width:100%">
-    <img src="https://picsum.photos/200/300" style="width:100%">
-    <img src="https://picsum.photos/300/300" style="width:100%">
-    <img src="https://picsum.photos/400/300" style="width:100%">
-    <img src="https://picsum.photos/300/300" style="width:100%">
-    <img src="https://picsum.photos/200/300" style="width:100%">
+    <img src="https://picsum.photos/400/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/150/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/200/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/300/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/400/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/300/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/200/300" style="width:100%" onclick="onClick(this)">
   </div>
   
   <div class="column">
-    <img src="https://picsum.photos/200/300" style="width:100%">
-    <img src="https://picsum.photos/600/300" style="width:100%">
-    <img src="https://picsum.photos/500/300" style="width:100%">
-    <img src="https://picsum.photos/800/300" style="width:100%">
-    <img src="https://picsum.photos/200/300" style="width:100%">
-    <img src="https://picsum.photos/400/300" style="width:100%">
-    <img src="https://picsum.photos/500/300" style="width:100%">
+    <img src="https://picsum.photos/200/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/600/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/500/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/800/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/200/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/500/300" style="width:100%" onclick="onClick(this)">
   </div> 
    
   <div class="column">
-    <img src="https://picsum.photos/300/300" style="width:100%">
-    <img src="https://picsum.photos/700/300" style="width:100%">
-    <img src="https://picsum.photos/200/300" style="width:100%">
-    <img src="https://picsum.photos/700/300" style="width:100%">
-    <img src="https://picsum.photos/300/300" style="width:100%">
-    <img src="https://picsum.photos/200/300" style="width:100%">
-    <img src="https://picsum.photos/300/300" style="width:100%">
+    <img src="https://picsum.photos/300/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/700/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/200/300" style="width:100%" onclick="onClick(this)">
+    <img src="https://picsum.photos/300/300" style="width:100%" onclick="onClick(this)">
+  </div>
+</div>
+
+<div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+  <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+  <div class="w3-modal-content w3-animate-zoom">
+    <img id="img01" style="width:100%">
   </div>
 </div>
 
 </body>
+
+<script>
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+}
+</script>
