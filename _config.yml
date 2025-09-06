@@ -41,3 +41,13 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+
+#SPIKE added
+
+#i need jquery
+#i need the lightbox thing
+footer_scripts:
+  - /assets/js/jquery/jquery-3.6.0.js
+  - /assets/js/plugins/jquery.magnific-popup.js
+  - /assets/js/main.js

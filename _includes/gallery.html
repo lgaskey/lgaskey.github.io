@@ -1,0 +1,108 @@
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+}
+
+.header {
+  text-align: center;
+  padding: 32px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 8px;
+}
+
+
+.column {
+  flex: 33%;
+  max-width: 33%;
+  padding: 0 8px;
+}
+
+.column img {
+  margin-top: 16px;
+  vertical-align: middle;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media (max-width: 800px) {
+  .column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .column {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+
+/* :has(img:hover) img:not(:hover) {
+  filter: brightness(0.5) contrast(0.5);
+} */
+
+</style>
+
+{% if include.id %}
+  {% assign gallery = page[include.id] %}
+{% else %}
+  {% assign gallery = page.gallery %}
+{% endif %}
+
+{% if include.layout %}
+  {% assign gallery_layout = include.layout %}
+{% else %}
+  {% if gallery.size == 2 %}
+    {% assign gallery_layout = 'half' %}
+  {% elsif gallery.size >= 3 %}
+    {% assign gallery_layout = 'third' %}
+  {% else %}
+    {% assign gallery_layout = '' %}
+  {% endif %}
+{% endif %}
+
+
+
+<figure class="{{ gallery_layout }} {{ include.class }}">
+<!-- Photo Grid -->
+<div class="row"> 
+  {% assign perColumn = gallery.size | divided_by: 3 %}
+  {% assign remainder = gallery.size | modulo: 3 %}
+  {% if remainder > 0 %}
+    {% assign perColumn = perColumn | plus: 1 %}
+  {% endif %}
+  {% assign leftInColumn = perColumn %}
+  {% for img in gallery %}
+    {% if leftInColumn == perColumn %}
+      <div class="column">
+    {% endif %}
+
+    {% assign leftInColumn = leftInColumn | minus: 1 %}
+    {% if img.url %}
+      <a href="{{ img.url | relative_url }}"
+        {% if img.title %}title="{{ img.title | escape_once }}"{% endif %}>
+          <img src="{{ img.image_path | relative_url }}" style="width:100%"
+               alt="{% if img.alt %}{{ img.alt | escape_once }}{% endif %}">
+      </a>
+    {% else %}
+      <img src="{{ img.image_path | relative_url }}"
+           alt="{% if img.alt %}{{ img.alt | escape_once }}{% endif %}">
+    {% endif %}
+    {% if leftInColumn == 0 %}
+      </div>
+      {% assign leftInColumn = perColumn %}
+    {% endif %}
+  {% endfor %}
+</div>
+
+</figure>

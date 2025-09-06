@@ -1,0 +1,9 @@
+{% if site.footer_scripts %}
+  {% for script in site.footer_scripts %}
+    <script src="{{ script | relative_url }}"></script>
+  {% endfor %}
+{% else %}
+<!--
+<dialog id="No footer scripts"></dialog>
+-->
+{% endif %}

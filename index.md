@@ -3,4 +3,34 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: home
+
+gallery:
+  - url: /assets/images/sample/celeste.jpg
+    image_path: /assets/images/sample/celeste.jpg
+    alt: "placeholder image 1"
+    title: "celeste is a cool game"
+  - url: /assets/images/sample/inside.jpg
+    image_path: /assets/images/sample/inside.jpg
+    alt: "placeholder image 2"
+    title: "Image 2 title caption"
+  - url: /assets/images/sample/journey.jpg
+    image_path: /assets/images/sample/journey.jpg
+    alt: "placeholder image 3"
+    title: "Image 3 title caption"
+  - url: https://picsum.photos/400/300
+    image_path: https://picsum.photos/400/300
+  - url: https://picsum.photos/400/300
+    image_path: https://picsum.photos/400/300
+  - url: https://picsum.photos/500/300
+    image_path: https://picsum.photos/500/300
+  - url: https://picsum.photos/400/500
+    image_path: https://picsum.photos/400/500
+  - url: https://picsum.photos/200/300
+    image_path: https://picsum.photos/200/300
+  - url: https://picsum.photos/500/300
+    image_path: https://picsum.photos/500/300
 ---
+
+
+
+{% include gallery.html caption="This is a sample gallery with **Markdown support**." %}
