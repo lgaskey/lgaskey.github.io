@@ -17,18 +17,7 @@ gallery:
     image_path: /assets/images/sample/journey.jpg
     alt: "placeholder image 3"
     title: "Image 3 title caption"
-  - url: https://picsum.photos/400/300
-    image_path: https://picsum.photos/400/300
-  - url: https://picsum.photos/400/300
-    image_path: https://picsum.photos/400/300
-  - url: https://picsum.photos/500/300
-    image_path: https://picsum.photos/500/300
-  - url: https://picsum.photos/400/500
-    image_path: https://picsum.photos/400/500
-  - url: https://picsum.photos/200/300
-    image_path: https://picsum.photos/200/300
-  - url: https://picsum.photos/500/300
-    image_path: https://picsum.photos/500/300
+
 ---
 
 
