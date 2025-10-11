@@ -43,6 +43,13 @@ plugins:
 
 
 #SPIKE added
+galleries:
+  - folder: "assets/images/portfolio"
+    name: "portfolio"
+  - folder: "poop"
+    name: "donky"
+
+
 
 #i need jquery
 #i need the lightbox thing
