@@ -42,3 +42,70 @@ $(function() {
     midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
   });
 });
+
+
+
+/**
+ *  
+ * @param {HTMLImageElement} img
+ */
+function saveAspectRatio(img) {
+  if(!img.complete){
+    //TODO remove this alert and log instead
+    alert("trying to calculate Aspect ratio on an unloaded image! ignoring!")
+    return
+  }
+  ar =  img.naturalHeight / img.naturalWidth
+  img.dataset.aspectRatio = ar
+  console.log(`saved aspect ratio as ${ar}`)
+}
+
+
+/**
+ * 
+ * @param {Element} img 
+ * @param {NodeListOf<Element>} columns 
+ */
+function InsertElement(img, columns){
+  shortestIndex = -1
+  shortestHeight = Number.MAX_SAFE_INTEGER
+  for (let i = 0; i < columns.length; i++) {
+    if(columns[i].offsetHeight < shortestHeight){
+      shortestHeight = columns[i].offsetHeight
+      shortestIndex = i
+    }
+  }
+  if(shortestIndex != -1){
+    console.log(`shortest index was ${shortestIndex} at height ${shortestHeight}`)
+    columns[shortestIndex].appendChild(img)
+  }else{
+    console.log(`no shortest column found! bad.`)
+  }
+}
+
+/**
+ * 
+ * @param {Element} gallery 
+ */
+function organizeSpikeGallery(gallery) {
+  unsorted = gallery.querySelector('.unsorted-images')
+  columnsToFill = gallery.querySelectorAll('.column')
+  console.log(`generating gallery. columns to fill: ${columnsToFill.length}, images ${unsorted.children.length}`)
+
+  //looping over live collection bad. fixed
+  for (const child of Array.from(unsorted.children)){
+    img = child.firstElementChild
+    if(img.complete){
+      //console.log(`complete ${child.href}`)
+      InsertElement(child, columnsToFill)
+    }else{
+      img.onload = function() {
+        InsertElement(this.parentElement, columnsToFill)
+      }
+    }
+  }
+}
+
+const galleries = document.querySelectorAll('.spike-gallery');
+galleries.forEach(gallery => organizeSpikeGallery(gallery));
+
